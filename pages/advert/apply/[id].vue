@@ -1,0 +1,187 @@
+<template>
+  <section>
+    <div class="w-[95%] sm:w-[60%] h-[100vh] p-3 sm:p-6 mx-auto text-zinc-800">
+      <div class="sm:pl-[40px] w-full relative h-full">
+        <div @click="goback" class="cursor-pointer absolute top-1 left-[-23px]">
+          <span class="w-[22px] h-[22px] sm:w-[28px] sm:h-[28px]">
+            <img
+              src="/images/arrow.svg"
+              alt=""
+              class="w-full h-full object-cover"
+            />
+          </span>
+        </div>
+        <div class="w-full flex flex-col justify-start">
+          <div class="form-group space-y-3">
+            <div class="text-sm sm:text-[15px]">Resume or CV</div>
+            <label
+              class="
+                overflow-hidden
+                gap-3
+                grid grid-cols-4
+                justify-center
+                items-center
+                bg-gray-200
+                w-[180px]
+                text-center
+                whitespace-nowrap
+                p-4
+                rounded-md
+              "
+              for="upload"
+            >
+              <span class="w-[22px] h-[22px] rotate-[60deg] transform">
+                <img
+                  src="/images/attach.svg"
+                  alt=""
+                  class="w-full h-full rotate-[60deg] transform object-cover"
+                />
+              </span>
+              <span
+                class="text-gray-500 col-span-3 whitespace-nowrap text-ellipsis"
+                >{{ `${fileName}` || "no attached file" }}</span
+              >
+            </label>
+            <input
+              id="upload"
+              class="block form__input input-field"
+              type="file"
+              accept=".pdf,.doc"
+              name=""
+              hidden
+              @change="handleFile($event)"
+            />
+          </div>
+          <div class="form-group space-y-3">
+            <label class="block form__label text-sm sm:text-[15px]" for=""
+              >Cover letter</label
+            >
+            <textarea
+              v-model.trim="letter"
+              minlength="0"
+              maxlength="100"
+              class="
+                bg-white
+                text-zinc-700
+                border-zinc-700
+                rounded-lg
+
+                focus:outline-none
+                w-full
+                p-2
+                h-[160px]
+              "
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="w-full h-fit flex justify-end">
+          <button
+            @click="apply"
+            class="
+              text-white
+              py-2
+              px-3
+              rounded-xl
+              border-0
+              bg-blue-900
+              hover:bg-blue-950
+              text-sm
+              sm:text-[16px]
+              flex
+              items-center
+              justify-center
+            "
+          >
+            <span>Apply Now</span>
+          </button>
+        </div>
+      </div>
+
+      <div :class="isLoading ? 'fixed inset-0 bg-none w-full h-full':'hidden'">
+        <div class="absolute m-auto text-sm sm:text-[16px] flex flex-col justify-center items-center inset-0 bg-blue-900 py-6 rounded-md px-4 w-fit h-fit space-y-4 text-white">
+            <div >
+              Application successful
+            </div>
+
+            <div
+            @click="goback"
+            class="border rounded-md py-1 px-2 ">Ok</div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <!-- content -->
+</template>
+
+<script>
+import { HiringService } from "~/services";
+import { useAuthStore } from "~/store/auth";
+export default {
+  setup() {
+    definePageMeta({
+      layout: "app",
+      middleware: ["auth"],
+    });
+    const { $toast } = useNuxtApp();
+    const auth = useAuthStore();
+    // console.log(auth)
+    return {
+      $toast,
+      auth,
+    };
+  },
+
+  data() {
+    return {
+      jobDetail: "",
+      resume: "",
+      letter: "",
+      fileName: "",
+      isLoading:false
+    };
+  },
+  mounted() {},
+
+  methods: {
+    goback() {
+      this.$router.back();
+    },
+    handleFile(event) {
+      //console.log(event.target.files[0])
+      if (event.target.files[0]) {
+        //console.log( event.target.files[0]?.name)
+        this.resume = event.target.files[0];
+        this.fileName = event.target.files[0]?.name;
+      }
+      const { authUser } = useAuthStore();
+      console.log(authUser);
+    },
+    apply() {
+      const { authUser } = useAuthStore();
+      const formData = new FormData();
+      formData.append("job_advert_id", this.$route.params.id);
+      formData.append("user_id", authUser.id);
+      formData.append("resume_file", this.resume);
+      formData.append("cv_document", this.resume);
+      formData.append("cover_letter", this.letter);
+      setTimeout(() => {
+            this.isLoading = true
+          },2000);
+      HiringService.applyforJob(formData)
+        .then((res) => {
+          console.log(res);
+     
+          this.resume = "";
+          this.letter = "";
+          this.fileName = "";
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
+};
+</script>

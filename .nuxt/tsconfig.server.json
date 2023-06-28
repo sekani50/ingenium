@@ -1,0 +1,67 @@
+{
+  "compilerOptions": {
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "jsx": "preserve",
+    "jsxFactory": "h",
+    "jsxFragmentFactory": "Fragment",
+    "paths": {
+      "#imports": [
+        "C:/Users/user/source/repos/ingenium/.nuxt/types/nitro-imports"
+      ],
+      "#paths": [
+        "C:/Users/user/source/repos/ingenium/node_modules/nuxt/dist/core/runtime/nitro/paths"
+      ],
+      "~": [
+        "C:/Users/user/source/repos/ingenium"
+      ],
+      "~/*": [
+        "C:/Users/user/source/repos/ingenium/*"
+      ],
+      "@": [
+        "C:/Users/user/source/repos/ingenium"
+      ],
+      "@/*": [
+        "C:/Users/user/source/repos/ingenium/*"
+      ],
+      "~~": [
+        "C:/Users/user/source/repos/ingenium"
+      ],
+      "~~/*": [
+        "C:/Users/user/source/repos/ingenium/*"
+      ],
+      "@@": [
+        "C:/Users/user/source/repos/ingenium"
+      ],
+      "@@/*": [
+        "C:/Users/user/source/repos/ingenium/*"
+      ],
+      "assets": [
+        "C:/Users/user/source/repos/ingenium/assets"
+      ],
+      "assets/*": [
+        "C:/Users/user/source/repos/ingenium/assets/*"
+      ],
+      "public": [
+        "C:/Users/user/source/repos/ingenium/public"
+      ],
+      "public/*": [
+        "C:/Users/user/source/repos/ingenium/public/*"
+      ],
+      "pinia": [
+        "C:/Users/user/source/repos/ingenium/node_modules/pinia/dist/pinia"
+      ]
+    }
+  },
+  "include": [
+    "C:/Users/user/source/repos/ingenium/.nuxt/types/nitro-nuxt.d.ts",
+    "./types/nitro.d.ts",
+    "../**/*",
+    "../server/**/*"
+  ]
+}
