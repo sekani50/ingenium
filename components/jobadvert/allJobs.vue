@@ -30,8 +30,10 @@
             relative
             rounded-xl
             border border-zinc-700
-            p-2
-            sm:p-4
+            px-2
+            py-4
+            sm:py-6
+            sm:px-4
             overflow-hidden
           ">
           <div>

@@ -1,7 +1,47 @@
 <template>
   <section>
-    <div class="w-[95%] sm:w-[60%] h-[100vh] p-3 sm:p-6 mx-auto text-zinc-800">
-      <div class="sm:pl-[40px] w-full relative h-full">
+    <div class="w-full h-[100vh] text-zinc-800">
+      <div class="h-[185px] inset-x-0 w-full relative">
+          <img
+            src="/images/resources/linkedinheaders-desktop.jpg"
+            alt=""
+            class="w-full h-full object-cover"
+          />
+          <span
+            class="absolute w-full h-full inset-0 bg-blue-950 bg-opacity-70"
+          ></span>
+          <button
+            @click="toggleSidebar"
+            
+            class="
+              absolute
+              border-2
+              bottom-4
+              text-blue-950
+              right-5
+              border-blue-950
+              w-fit
+              px-3
+              py-2
+              rounded-3xl
+              bg-white
+              flex
+              items-center
+              justify-center
+            "
+          >
+            <span>View Dashboard</span>
+          </button>
+        </div>
+  
+        <PartialsRightSidebar
+          :togglePost="togglePost"
+          :toggleSidebar="toggleSidebar"
+          :issidebar="issidebar"
+          :accountType="accountType"
+        />
+      <div class="w-[95%] sm:w-[70%] p-3 sm:p-6 mx-auto ">
+        <div class="sm:pl-[40px] w-full relative h-full">
         <div @click="goback" class="cursor-pointer absolute top-1 left-[-23px]">
           <span class="w-[22px] h-[22px] sm:w-[28px] sm:h-[28px]">
             <img
@@ -82,6 +122,7 @@
               text-white
               py-2
               px-3
+              w-[120px]
               rounded-xl
               border-0
               bg-blue-900
@@ -93,12 +134,28 @@
               justify-center
             "
           >
-            <span>Apply Now</span>
+          <div v-if="isLoading" class="flex justify-center items-center">
+              <div
+                class="
+                  rounded-full
+                  border-2
+                  animate-spin
+                  border-r-0 border-b-0
+                  w-[20px]
+                  h-[20px]
+                  small-loader
+                  border-slate-50
+                "
+              ></div>
+            </div>
+            <span v-else>Apply Now</span>
           </button>
         </div>
       </div>
+      </div>
+    
 
-      <div :class="isLoading ? 'fixed inset-0 bg-none w-full h-full':'hidden'">
+      <div :class="isSubmit ? 'fixed inset-0 bg-none w-full h-full':'hidden'">
         <div class="absolute m-auto text-sm sm:text-[16px] flex flex-col justify-center items-center inset-0 bg-blue-900 py-6 rounded-md px-4 w-fit h-fit space-y-4 text-white">
             <div >
               Application successful
@@ -140,7 +197,11 @@ export default {
       resume: "",
       letter: "",
       fileName: "",
-      isLoading:false
+      isLoading:false,
+      isSubmit:false,
+      accountType:"",
+      isPost: false,
+      issidebar: false,
     };
   },
   mounted() {},
@@ -149,6 +210,12 @@ export default {
     goback() {
       this.$router.back();
     },
+    togglePost() {
+        this.isPost = !this.isPost;
+      },
+      toggleSidebar() {
+        this.issidebar = !this.issidebar;
+      },
     handleFile(event) {
       //console.log(event.target.files[0])
       if (event.target.files[0]) {
@@ -160,20 +227,21 @@ export default {
       console.log(authUser);
     },
     apply() {
+      this.isLoading = true
       const { authUser } = useAuthStore();
+      this.accountType = authUser.account.account_type;
       const formData = new FormData();
-      formData.append("job_advert_id", this.$route.params.id);
+     formData.append("job_advert_id", this.$route.params.id);
       formData.append("user_id", authUser.id);
       formData.append("resume_file", this.resume);
       formData.append("cv_document", this.resume);
       formData.append("cover_letter", this.letter);
-      setTimeout(() => {
-            this.isLoading = true
-          },2000);
-      HiringService.applyforJob(formData)
+   
+      this.accountType === 2 && HiringService.applyforJob(formData)
         .then((res) => {
           console.log(res);
-     
+          this.isLoading =false
+          this.isSubmit = true
           this.resume = "";
           this.letter = "";
           this.fileName = "";

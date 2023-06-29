@@ -12,7 +12,7 @@
         ></span>
         <button
           @click="toggleSidebar"
-          v-if="accountType === 1"
+          
           class="
             absolute
             border-2
@@ -34,10 +34,11 @@
         </button>
       </div>
 
-      <PartialsHrsideBar
+      <PartialsRightSidebar
         :togglePost="togglePost"
         :toggleSidebar="toggleSidebar"
         :issidebar="issidebar"
+        :accountType="accountType"
       />
       <JobadvertJobPosting :togglePost="togglePost" :isPost="isPost" />
       <JobadvertAllJobs :data="availableJobs" :isLoading="isLoading" />
@@ -78,21 +79,31 @@ export default {
   mounted() {
     
     const { authUser } = useAuthStore();
-    console.log(authUser.account.account_type)
+    //console.log(authUser.account.account_type)
     this.accountType = authUser.account.account_type;
-    HiringService.allJobs()
+   this.accountType === 1 && HiringService.allPostedJobs()
       .then((res) => {
         console.log(res);
         const { data } = res.data;
-        //console.log(this.accountType )
-        if (this.accountType === 1) {
-
+       
           this.availableJobs = data.filter(
             (item) => item.user_id === authUser.id
           );
-        } else {
-          this.availableJobs = data;
-        }
+      
+
+        this.isLoading = false;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+      this.accountType === 2 && HiringService.allJobs()
+      .then((res) => {
+        console.log(res);
+        const { data } = res.data;
+       
+          this.availableJobs = data
+      
 
         this.isLoading = false;
       })

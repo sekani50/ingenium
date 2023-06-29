@@ -14003,6 +14003,10 @@ color: #b88801 !important;
   border-right: 1px solid white;
 }
 
+.myjob-border {
+  border-top:1px solid grey;
+}
+
 .let {
   -webkit-animation-duration: 0.5s;
   animation-duration: 0.5s;

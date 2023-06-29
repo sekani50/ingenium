@@ -4,7 +4,7 @@ import { useAuthStore } from "../store/auth";
 
 const options = {
   
-  baseURL: "https://prod.theingeniumapp.com/api/v1/",
+  baseURL: "https://s.theingeniumapp.com/api/v1",
   onRequest: ( {request, response, options, error}:any ) => {
     console.log(request, response, options, error);
     if (window.Cookies.useAuthStore) {
