@@ -40,17 +40,22 @@
           :issidebar="issidebar"
           :accountType="accountType"
         />
-      <div class="w-[95%] sm:w-[70%] p-3 sm:p-6 mx-auto ">
-        <div class="sm:pl-[40px] w-full relative h-full">
-        <div @click="goback" class="cursor-pointer absolute top-1 left-[-23px]">
+
+        <div @click="goback" class="pl-2 cursor-pointer absolute top-1 left-2">
           <span class="w-[22px] h-[22px] sm:w-[28px] sm:h-[28px]">
             <img
-              src="/images/arrow.svg"
+              src="/images/arrows.svg"
               alt=""
               class="w-full h-full object-cover"
             />
           </span>
         </div>
+        <div class="w-full space-y-3  mx-auto">
+         
+
+        <div class="w-[95%] sm:w-[70%] p-3 sm:p-6 mx-auto mt-3 border rounded-lg ">
+        <div class="sm:pl-[40px] w-full relative h-full">
+     
         <div class="w-full flex flex-col justify-start">
           <div class="form-group space-y-3">
             <div class="text-sm sm:text-[15px]">Resume or CV</div>
@@ -153,9 +158,11 @@
         </div>
       </div>
       </div>
+        </div>
+  
     
 
-      <div :class="isSubmit ? 'fixed inset-0 bg-none w-full h-full':'hidden'">
+      <div :class="isSubmit ? 'fixed let swipeDown inset-0 bg-none w-full h-full':'hidden'">
         <div class="absolute m-auto text-sm sm:text-[16px] flex flex-col justify-center items-center inset-0 bg-blue-900 py-6 rounded-md px-4 w-fit h-fit space-y-4 text-white">
             <div >
               Application successful
@@ -163,7 +170,7 @@
 
             <div
             @click="goback"
-            class="border rounded-md py-1 px-2 ">Ok</div>
+            class="border rounded-md py-1 px-2 cursor-pointer ">Ok</div>
 
         </div>
 

@@ -14008,8 +14008,8 @@ color: #b88801 !important;
 }
 
 .let {
-  -webkit-animation-duration: 0.5s;
-  animation-duration: 0.5s;
+  -webkit-animation-duration: 0.4s;
+  animation-duration: 0.4s;
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
 }
@@ -14036,5 +14036,30 @@ color: #b88801 !important;
 
   100% {
     -webkit-transform: translateX(0px);
+  }
+}
+
+.swipeDown {
+  animation-name: swipeDown;
+  -webkit-animation-name: swipeDown;
+}
+
+@keyframes swipeDown {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@-webkit-keyframes swipeDown {
+  0% {
+    -webkit-transform: translateY(-100%);
+  }
+
+  100% {
+    -webkit-transform: translateY(0px);
   }
 }

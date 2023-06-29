@@ -81,7 +81,7 @@
             <span class="w-[24px] h-[24px]">
               <img src="/images/view.svg" alt="" class="w-full h-full" />
             </span>
-            <span class="text-[#184391]"> My Jobs </span>
+            <span class="text-[#184391]"> My Applications </span>
           </div>
           </NuxtLink>
         </div>

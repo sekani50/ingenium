@@ -58,5 +58,13 @@ export default {
       method: "GET",
       headers: { Accept: "application/json" },
     })
+  },
+  //accept or reject applicants- HR
+  async toggleStatus (id) {
+    return await apiRequest(`/hiring/jobapplications/${id}`, {
+      method: "PATCH",
+      headers: { Accept: "application/json" },
+    })
+
   }
 };

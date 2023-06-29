@@ -40,19 +40,22 @@
           :issidebar="issidebar"
           :accountType="accountType"
         />
-
-        <div class="w-[95%] p-3 sm:p-6 mx-auto sm:w-[70%]">
-               
-      <div v-if="!isLoading" class="sm:pl-[40px] w-full relative h-full">
-        <div @click="goback" class="cursor-pointer absolute top-1 left-[-10px]">
+        <div @click="goback" class="pl-2 cursor-pointer absolute top-1 left-2">
           <span class="w-[22px] h-[22px] sm:w-[28px] sm:h-[28px]">
             <img
-              src="/images/arrow.svg"
+              src="/images/arrows.svg"
               alt=""
               class="w-full h-full object-cover"
             />
           </span>
         </div>
+        <div  v-if="!isLoading" class="w-full space-y-3  mx-auto">
+        
+      
+        <div class="w-[95%] p-3 sm:p-6 mx-auto mt-3 border sm:w-[70%]">
+               
+      <div  class="sm:pl-[40px] w-full relative h-full">
+     
         <div class="w-full flex flex-col pl-[20px] sm:pl-0 justify-start">
           <div class="text-lg font-semibold capitalize">
             {{ jobDetail.title || "--" }}
@@ -175,10 +178,12 @@
           </div>
         </div>
       </div>
+      </div>
+    </div>
       <div v-else class="flex items-center w-full justify-center h-[200px]">
         <div class="h-[40px] w-[40px] animate-spin rounded-full loader"></div>
       </div> 
-        </div>
+       
    
     </div>
   </section>

@@ -40,11 +40,21 @@
           :issidebar="issidebar"
           :accountType="accountType"
         />
+
+        <div @click="goback" class="pl-2 cursor-pointer absolute top-1 left-2">
+          <span class="w-[22px] h-[22px] sm:w-[28px] sm:h-[28px]">
+            <img
+              src="/images/arrows.svg"
+              alt=""
+              class="w-full h-full object-cover"
+            />
+          </span>
+        </div>
       
         <div class="w-full sm:w-[80%] mx-auto sm:py-4 sm:px-8 py-3 px-2 ">
-            <div class="font-semibold text-[15px] sm:text-xl py-2">My Jobs</div>
+            <div class="font-semibold text-[15px] sm:text-xl py-2">My Applications</div>
             <div v-for="({jobadvert}, index) in appliedJobs" :key="index">
-                <div class="py-2 myjob-border flex flex-col">
+                <div class="py-3 px-2 myjob-border flex flex-col">
                     <div class="text-blue-700 bg-blue-700 bg-opacity-20 px-2 py-1 text-[12px] sm:text-sm w-fit rounded-md">applied</div>
                     <div>
             <div class="text-[16px] sm:text-lg font-semibold capitalize">{{ jobadvert.title }}</div>
@@ -111,7 +121,7 @@
         .catch((err) => {
           console.log(err);
         });
-  
+        
   
     },
     methods: {
@@ -121,6 +131,10 @@
       toggleSidebar() {
         this.issidebar = !this.issidebar;
       },
+      goback() {
+        this.$router.back();
+      }
+   
     },
   };
   </script>
