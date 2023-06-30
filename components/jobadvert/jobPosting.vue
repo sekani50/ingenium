@@ -73,8 +73,7 @@
               >Description</label
             >
             <textarea
-             minlength="0"
-              maxlength="100"
+            
               v-model.trim="description"
               class="
                 bg-white
