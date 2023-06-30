@@ -45,7 +45,7 @@ export default  {
     },
 
 
-    // USER TIMELINE
+    // USER TIMELINE users/timeline?username=&own=true
     async getTimeline(username: any, page = null ) {
         if(username) return await apiRequest(`contents/timeline?username=${username}&page=${page}`, { method: 'GET' })
         return await apiRequest(`contents/timeline?page=${page}`, { method: 'GET' })

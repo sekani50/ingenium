@@ -11,8 +11,8 @@
             class="absolute w-full h-full inset-0 bg-blue-950 bg-opacity-70"
           ></span>
           <button
-            @click="toggleSidebar"
-            
+            @click="togglePost"
+            v-if="accountType === 1"
             class="
               absolute
               border-2
@@ -30,17 +30,23 @@
               justify-center
             "
           >
-            <span>View Dashboard</span>
+            <span>Post Job</span>
           </button>
+          <NuxtLink to="/advert/myjobs">
+          <div v-if="accountType === 2" class="absolute bottom-0  sm:text-sm left-[20px] text-white">
+            <div v-if="currentPath === '/advert/myjobs'" class="relative bg-white p-1 text-[#184391] rounded-t-md font-semibold">
+                My Applications
+              <span class="active-border-right"></span>
+              <span class="active-border-left"></span>
+            </div>
+            <div v-else  class=" p-1 text-white font-medium">
+                My Applications
+            </div>
+        </div>
+        </NuxtLink>
         </div>
   
-        <PartialsRightSidebar
-          :togglePost="togglePost"
-          :toggleSidebar="toggleSidebar"
-          :issidebar="issidebar"
-          :accountType="accountType"
-        />
-
+        <JobadvertJobPosting :togglePost="togglePost" :isPost="isPost" />
         <div @click="goback" class="pl-2 cursor-pointer absolute top-1 left-2">
           <span class="w-[22px] h-[22px] sm:w-[28px] sm:h-[28px]">
             <img
@@ -51,13 +57,19 @@
           </span>
         </div>
       
-        <div class="w-full sm:w-[80%] mx-auto sm:py-4 sm:px-8 py-3 px-2 ">
+        <div class="w-full h-fit mt-3 rounded-md bg-white shadow-lg sm:w-[80%] mx-auto sm:py-4 sm:px-8 py-3 px-2 ">
             <div class="font-semibold text-[15px] sm:text-xl py-2">My Applications</div>
-            <div v-for="({jobadvert}, index) in appliedJobs" :key="index">
+            <div v-for="({jobadvert, status}, index) in appliedJobs" :key="index">
                 <div class="py-3 px-2 myjob-border flex flex-col">
-                    <div class="text-blue-700 bg-blue-700 bg-opacity-20 px-2 py-1 text-[12px] sm:text-sm w-fit rounded-md">applied</div>
+                   
                     <div>
-            <div class="text-[16px] sm:text-lg font-semibold capitalize">{{ jobadvert.title }}</div>
+           
+            <div class="flex space-x-2 items-center">
+                <div class="text-[16px] sm:text-lg font-semibold capitalize">{{ jobadvert.title }}</div>
+                
+                <div v-if="status" class="text-green-700 bg-green-700 bg-opacity-20 px-2 py-1 text-[12px] sm:text-sm w-fit rounded-md">accepted</div>
+                <div v-else class="text-blue-700 bg-blue-700 bg-opacity-20 px-2 py-1 text-[12px] sm:text-sm w-fit rounded-md">applied</div>
+            </div>
             <div class="text-[15px] sm:text-[17px] font-light capitalize">
               {{ jobadvert.company_name }}
             </div>
@@ -77,6 +89,7 @@
   <script>
   import { HiringService } from "~/services";
   import { useAuthStore } from "~/store/auth";
+  
   export default {
     setup() {
       definePageMeta({
@@ -101,10 +114,13 @@
       };
     },
     computed: {
-  
+        currentPath () {
+            const {path} = useRoute()
+            return path
+        }
     },
     mounted() {
-      
+   
       const { authUser } = useAuthStore();
       //console.log(authUser.account.account_type)
       this.accountType = authUser.account.account_type;

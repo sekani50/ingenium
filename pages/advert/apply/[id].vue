@@ -11,8 +11,8 @@
             class="absolute w-full h-full inset-0 bg-blue-950 bg-opacity-70"
           ></span>
           <button
-            @click="toggleSidebar"
-            
+            @click="togglePost"
+            v-if="accountType === 1"
             class="
               absolute
               border-2
@@ -30,17 +30,24 @@
               justify-center
             "
           >
-            <span>View Dashboard</span>
+            <span>Post Job</span>
           </button>
+          <NuxtLink to="/advert/myjobs">
+          <div v-if="accountType === 2" class="absolute bottom-0  sm:text-sm left-[20px] text-white">
+            <div v-if="currentPath === '/advert/myjobs'" class="relative bg-white p-1 text-[#184391] rounded-t-md font-semibold">
+              My Applications
+              <span class="active-border-right"></span>
+              <span class="active-border-left"></span>
+            </div>
+            <div v-else  class=" p-1 text-white font-medium">
+                My applications
+            </div>
+        </div>
+        </NuxtLink>
         </div>
   
-        <PartialsRightSidebar
-          :togglePost="togglePost"
-          :toggleSidebar="toggleSidebar"
-          :issidebar="issidebar"
-          :accountType="accountType"
-        />
-
+      
+        <JobadvertJobPosting :togglePost="togglePost" :isPost="isPost" />
         <div @click="goback" class="pl-2 cursor-pointer absolute top-1 left-2">
           <span class="w-[22px] h-[22px] sm:w-[28px] sm:h-[28px]">
             <img
@@ -53,7 +60,7 @@
         <div class="w-full space-y-3  mx-auto">
          
 
-        <div class="w-[95%] sm:w-[70%] p-3 sm:p-6 mx-auto mt-3 border rounded-lg ">
+        <div class="w-[95%] sm:w-[70%] p-3 sm:p-6 shadow-lg mx-auto mt-3 border rounded-lg ">
         <div class="sm:pl-[40px] w-full relative h-full">
      
         <div class="w-full flex flex-col justify-start">
@@ -211,6 +218,12 @@ export default {
       issidebar: false,
     };
   },
+  computed: {
+        currentPath () {
+            const {path} = useRoute()
+            return path
+        }
+    },
   mounted() {},
 
   methods: {
@@ -220,9 +233,7 @@ export default {
     togglePost() {
         this.isPost = !this.isPost;
       },
-      toggleSidebar() {
-        this.issidebar = !this.issidebar;
-      },
+    
     handleFile(event) {
       //console.log(event.target.files[0])
       if (event.target.files[0]) {
@@ -234,6 +245,17 @@ export default {
       console.log(authUser);
     },
     apply() {
+      const validateData = {
+        resume: this.resume,
+        letter: this.letter
+      }
+
+      for (let i in validateData) {
+        if(validateData[i] === '') {
+          this.$toast(`${i} is required`)
+          return
+        }
+      }
       this.isLoading = true
       const { authUser } = useAuthStore();
       this.accountType = authUser.account.account_type;

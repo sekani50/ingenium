@@ -14063,3 +14063,25 @@ color: #b88801 !important;
     -webkit-transform: translateY(0px);
   }
 }
+
+.active-border-right {
+  border-left: 12px solid #ffffff;
+  border-top: 23px solid rgba(0, 0, 0, 0);
+  height: 0;
+  position: absolute;
+  right: -12px;
+  top: 5px;
+  width: 0;
+}
+.active-border-left {
+  
+  border-bottom: 25px solid #ffffff;
+  border-left: 13px solid rgba(0, 0, 0, 0);
+  border-top: 15px solid rgba(0, 0, 0, 0);
+  height: 0;
+  left: -13px;
+  position: absolute;
+  top: -11px;
+  width: 0;
+
+}

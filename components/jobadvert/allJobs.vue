@@ -29,9 +29,11 @@
             h-[250px]
             relative
             rounded-xl
-            border border-zinc-700
+            border
+            
             px-2
             py-4
+            shadow-lg
             sm:py-6
             sm:px-4
             overflow-hidden

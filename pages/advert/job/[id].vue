@@ -11,7 +11,8 @@
             class="absolute w-full h-full inset-0 bg-blue-950 bg-opacity-70"
           ></span>
           <button
-            @click="toggleSidebar"
+          v-if="accountType === 1"
+            @click="togglePost"
             
             class="
               absolute
@@ -30,16 +31,24 @@
               justify-center
             "
           >
-            <span>View Dashboard</span>
+            <span>Post Job</span>
           </button>
+          <NuxtLink to="/advert/myjobs">
+          <div v-if="accountType === 2" class="absolute bottom-0  sm:text-sm left-[20px] text-white">
+            <div v-if="currentPath === '/advert/myjobs'" class="relative bg-white p-1 text-[#184391] rounded-t-md font-semibold">
+              My Applications
+              <span class="active-border-right"></span>
+              <span class="active-border-left"></span>
+            </div>
+            <div v-else  class=" p-1 text-white font-medium">
+                My applications
+            </div>
+        </div>
+        </NuxtLink>
         </div>
   
-        <PartialsRightSidebar
-          :togglePost="togglePost"
-          :toggleSidebar="toggleSidebar"
-          :issidebar="issidebar"
-          :accountType="accountType"
-        />
+     
+        <JobadvertJobPosting :togglePost="togglePost" :isPost="isPost" />
         <div @click="goback" class="pl-2 cursor-pointer absolute top-1 left-2">
           <span class="w-[22px] h-[22px] sm:w-[28px] sm:h-[28px]">
             <img
@@ -52,7 +61,7 @@
         <div  v-if="!isLoading" class="w-full space-y-3  mx-auto">
         
       
-        <div class="w-[95%] p-3 sm:p-6 mx-auto mt-3 border sm:w-[70%]">
+        <div class="w-[95%] h-fit bg-white shadow-lg p-3 sm:p-6 mx-auto mt-3 border rounded-lg sm:w-[70%]">
                
       <div  class="sm:pl-[40px] w-full relative h-full">
      
@@ -217,6 +226,12 @@ export default {
       issidebar:false,
     };
   },
+  computed: {
+        currentPath () {
+            const {path} = useRoute()
+            return path
+        }
+    },
   mounted() {
     const { authUser } = useAuthStore();
     console.log(authUser.account.account_type);

@@ -11,8 +11,8 @@
           class="absolute w-full h-full inset-0 bg-blue-950 bg-opacity-70"
         ></span>
         <button
-          @click="toggleSidebar"
-          
+          @click="togglePost"
+          v-if="accountType === 1"
           class="
             absolute
             border-2
@@ -30,16 +30,25 @@
             justify-center
           "
         >
-          <span>View Dashboard</span>
+          <span>Post Job</span>
         </button>
+        <NuxtLink to="/advert/myjobs">
+          <div v-if="accountType === 2" class="absolute bottom-0  sm:text-sm left-[20px] text-white">
+            <div v-if="currentPath === '/advert/myjobs'" class="relative bg-white p-1 text-[#184391] rounded-t-md font-semibold">
+              My Applications
+              <span class="active-border-right"></span>
+              <span class="active-border-left"></span>
+            </div>
+            <div v-else  class=" p-1 text-white font-medium">
+                My applications
+            </div>
+        </div>
+        </NuxtLink>
+       
+
       </div>
 
-      <PartialsRightSidebar
-        :togglePost="togglePost"
-        :toggleSidebar="toggleSidebar"
-        :issidebar="issidebar"
-        :accountType="accountType"
-      />
+  
       <JobadvertJobPosting :togglePost="togglePost" :isPost="isPost" />
       <JobadvertAllJobs :data="availableJobs" :isLoading="isLoading" />
     </div>
@@ -74,8 +83,11 @@ export default {
     };
   },
   computed: {
-
-  },
+        currentPath () {
+            const {path} = useRoute()
+            return path
+        }
+    },
   mounted() {
     
     const { authUser } = useAuthStore();
