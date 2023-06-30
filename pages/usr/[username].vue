@@ -261,7 +261,7 @@ export default {
             connects: [],
             followings: [],
             followers: [],
-            username: this.$route.params.username
+            username: this.$route.params.username  
         }
     },
     beforeRouteEnter(to, from, next) {
@@ -275,6 +275,7 @@ export default {
     },
 
     mounted() {
+        console.log(this.$route.params.username)
         this.authUser = useAuthStore().authUser
         this.getUser(this.username)
         this.getUserConnects(this.username)

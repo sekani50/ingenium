@@ -16,7 +16,7 @@
           items-center
         "
       >
-        <div v-for="({ media }, index) in data" :key="index">
+        <div v-for="({ media, user_id }, index) in data" :key="index">
           <div>
             <div
               class="
@@ -24,7 +24,8 @@
                 h-[200px]
                 relative
                 rounded-xl
-                border border-zinc-700
+                border
+                shadow-lg
                 px-2
                 py-2
                 sm:py-4
@@ -82,43 +83,60 @@
                 <div
                   class="
                     flex
-                    justify-start
+                    justify-between
                     text-[13px]
                     sm:text-[15px]
-                    items-start
+                    items-center
                     w-full
                   "
                 >
                   <button
-                  @click="handleStatus"
+                    @click="handleStatus"
                     class="
                       border-0
                       rounded-lg
                       px-2
-                      py-1
+                      py-2
                       w-[60px]
-                      text-gray-100
-                      bg-green-600
-
+                      text-zinc-800
+                      bg-gray-200
+                      shadow-xl
                     "
                   >
-                     <div v-if="isStatus" class="flex justify-center items-center">
-              <div
-                class="
-                  rounded-full
-                  border-2
-                  animate-spin
-                  border-r-0 border-b-0
-                  w-[20px]
-                  h-[20px]
-                  small-loader
-                  border-slate-50
-                "
-              ></div>
-            </div>
-            <span v-else>Accept</span>
+                    <div
+                      v-if="isStatus"
+                      class="flex justify-center items-center"
+                    >
+                      <div
+                        class="
+                          rounded-full
+                          border-2
+                          animate-spin
+                          border-r-0 border-b-0
+                          w-[20px]
+                          h-[20px]
+                          small-loader
+                          border-zinc-800
+                        "
+                      ></div>
+                    </div>
+                    <span v-else class="font-semibold">Accept</span>
                   </button>
-                 
+
+                  <NuxtLink :to="`/usr/${user_id}`">
+                    <span
+                      class="
+                        text-zinc-800
+                        bg-gray-200
+                        rounded-lg
+                        px-2
+                        py-2
+                        shadow-xl
+                      "
+                    >
+                      View Profile
+                  </span>
+                  </NuxtLink>
                 </div>
               </div>
             </div>
@@ -141,13 +159,38 @@
     <div v-else class="flex items-center w-full justify-center h-[300px]">
       <div class="h-[40px] w-[40px] animate-spin rounded-full loader"></div>
     </div>
-    <div :class="isSubmit ? 'fixed let swipeDown inset-0 bg-none w-full h-full':'hidden'">
-        <div class="absolute m-auto text-sm sm:text-[16px] flex flex-col justify-center items-center inset-0 bg-green-600 py-6 rounded-md px-4 w-fit h-fit space-y-4 text-white">
-            <div>{{ 'Application Accepted' }}</div>
-            <div
-            @click="goback"
-            class="border rounded-md py-1 px-2 cursor-pointer ">Ok</div>
+    <div
+      :class="
+        isSubmit
+          ? 'fixed let swipeDown inset-0 bg-none w-full h-full'
+          : 'hidden'
+      "
+    >
+      <div
+        class="
+          absolute
+          m-auto
+          text-sm
+          sm:text-[16px]
+          flex flex-col
+          justify-center
+          items-center
+          inset-0
+          bg-green-600
+          py-6
+          rounded-md
+          px-4
+          w-fit
+          h-fit
+          space-y-4
+          text-white
+        "
+      >
+        <div>{{ "Application Accepted" }}</div>
+        <div @click="goback" class="border rounded-md py-1 px-2 cursor-pointer">
+          Ok
         </div>
+      </div>
     </div>
   </div>
 
@@ -156,7 +199,7 @@
 
 <script>
 export default {
-  props: ["data", "isLoading", 'handleStatus',"isStatus","isSubmit"],
+  props: ["data", "isLoading", "handleStatus", "isStatus", "isSubmit"],
   setup() {},
 
   methods: {
