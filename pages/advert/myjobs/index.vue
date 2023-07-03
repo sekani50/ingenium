@@ -57,7 +57,7 @@
           </span>
         </div>
       
-        <div class="w-full mt-[4%] px-[16px] sm:px-[40px]">
+        <div class="w-full p-[16px] sm:p-[40px]">
           <div class="w-full h-fit mt-3 rounded-md bg-white shadow-lg  sm:py-4 sm:px-8 py-3 px-2 ">
             <div class="font-semibold text-[15px] sm:text-xl py-2">My Applications</div>
             <div v-for="({jobadvert, status}, index) in appliedJobs" :key="index">

@@ -57,7 +57,7 @@
             />
           </span>
         </div>
-        <div class="w-full space-y-3  px-[16px] sm:px-[40px] mt-[4%] mx-auto">
+        <div class="w-full space-y-3  p-[16px] sm:p-[40px]  mx-auto">
          
 
         <div class="w-full p-3 sm:p-6 shadow-lg mx-auto mt-3 border rounded-lg ">

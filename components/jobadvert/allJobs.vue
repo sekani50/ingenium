@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-[4%] w-full px-[16px] sm:px-[40px]">
+  <div class=" w-full p-[16px] sm:p-[40px]">
     <div
       class="
         grid grid-cols-1
