@@ -45,7 +45,6 @@
         </div>
         </NuxtLink>
         </div>
-  
       
         <JobadvertJobPosting :togglePost="togglePost" :isPost="isPost" />
         <div @click="goback" class="pl-2 cursor-pointer absolute top-1 left-2">
@@ -57,9 +56,8 @@
             />
           </span>
         </div>
-        <div class="w-full space-y-3  p-[16px] sm:p-[40px]  mx-auto">
-         
-
+        <div class="w-full space-y-3  mt-[4%]  px-[16px] sm:px-[40px]  mx-auto">
+        
         <div class="w-full p-3 sm:p-6 shadow-lg mx-auto mt-3 border rounded-lg ">
         <div class="sm:pl-[40px] w-full relative h-full">
      

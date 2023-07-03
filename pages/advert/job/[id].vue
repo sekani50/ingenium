@@ -58,7 +58,7 @@
             />
           </span>
         </div>
-        <div  v-if="!isLoading" class="w-full  space-y-3 p-[16px] sm:p-[40px]">
+        <div  v-if="!isLoading" class="w-full  mt-[4%]  space-y-3 px-[16px] sm:px-[40px]">
         
       
         <div class=" h-fit bg-white relative shadow-lg p-3 sm:p-6 mx-auto mt-3 border rounded-lg">
