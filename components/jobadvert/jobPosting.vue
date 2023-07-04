@@ -62,7 +62,7 @@
             <input
               @change=""
               class="block form__input input-field"
-              type="text"
+              type="name"
               name=""
               placeholder=""
               v-model.trim="company"
@@ -148,7 +148,7 @@
             <input
               @change=""
               class="block form__input input-field"
-              type="text"
+              type="address"
               name=""
               placeholder=""
               v-model.trim="location"
